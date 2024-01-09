@@ -445,7 +445,7 @@ export function verifyEmailGenerator (
                                   style="line-height:10px"
                                 >
                                   <img
-                                    src="https://ds9xi3hub5xxi.cloudfront.net/cdn/farfuture/otEn1mSO8Tk3mLVPFxYMCMwRn-qtie_ueonsviYMy0w/mtime:1608563955/sites/default/files/nodeicon/plugins_email-verification-plugin.png"
+                                    src="https://png.pngitem.com/pimgs/s/279-2794359_grell-black-butler-chibi-by-sugar-addikt-clipart.png"
                                     style="display:block;height:auto;border:0;max-width:400px;width:100%"
                                     width="600"
                                     alt="Alternate text"
