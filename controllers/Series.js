@@ -3,8 +3,6 @@ import dotenv from 'dotenv'
 
 // Model & Type Imports
 import Series from '../models/Series.js'
-import Collection from '../models/Collection.js'
-import Manga from '../models/Manga.js'
 
 import { successfulRequest, failedRequest } from '../utils/SharedFunctions.js'
 import { userLoggedIn } from '../utils/UserVerified.js'
@@ -30,11 +28,23 @@ router.get('/', userLoggedIn, async (request, response) => {
     )
 
     const parsedData = await apiResponse.json()
+    const seriesData = parsedData.data.map((series) => {
+      return {
+        id: series.id,
+        title: series.attributes.title.en,
+        description: series.attributes.description.en,
+        tags: series.attributes.tags.map(
+          (tagArray) => tagArray.attributes.name.en
+        ),
+        author: series.relationships[0].attributes.name,
+        coverFileName: series.relationships[2].attributes.fileName
+      }
+    })
     successfulRequest(
       response,
       'Successful Search',
       'Information Attached',
-      parsedData
+      seriesData
     )
   } catch (error) {
     console.error(error)
@@ -43,7 +53,9 @@ router.get('/', userLoggedIn, async (request, response) => {
 })
 
 // Gets Image
-// https://uploads.mangadex.org/covers/e7d11d14-dbf6-45fe-ab43-848fe81c892a/a6b3030d-2cc1-42a1-9317-d6e6e92b92da.jpg
-// https://uploads.mangadex.org/manga/e7d11d14-dbf6-45fe-ab43-848fe81c892a?includes[]=author&includes[]=artist&includes[]=cover_art
+// https://uploads.mangadex.org/covers/:manga-id/:cover-filename
+
+// search Amazon
+// https://www.amazon.com/s?k=${title} manga volume {volumeNumber}
 
 export default router
