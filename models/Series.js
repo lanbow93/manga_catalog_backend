@@ -7,10 +7,10 @@ const seriesSchema = new mongoose.Schema({
   userId: { type: String, required: true },
   title: { type: String, required: true },
   description: { type: String, required: true },
-  status: {type: String, required: true},
+  completionStatus: {type: String, required: true},
   tags: { type: [String], required: true },
   author: { type: String, required: true },
-  coverFileName: { type: String, required: true },
+  coverUrl: { type: String, required: true },
   volumes: [
     {
       volumeNumber: { type: Number, required: true },

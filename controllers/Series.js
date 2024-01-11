@@ -30,15 +30,15 @@ router.get('/', userLoggedIn, async (request, response) => {
     const parsedData = await apiResponse.json()
     const seriesData = parsedData.data.map((series) => {
       return {
-        id: series.id,
+        mangadexId: series.id,
         title: series.attributes.title.en,
         description: series.attributes.description.en,
-        status: series.attributes.status,
+        completionStatus: series.attributes.status,
         tags: series.attributes.tags.map(
           (tagArray) => tagArray.attributes.name.en
         ),
         author: series.relationships[0].attributes.name,
-        coverFileName: series.relationships[2].attributes.fileName
+        coverUrl: `https://uploads.mangadex.org/covers/${series.id}/${series.relationships[2].attributes.fileName}`
       }
     })
     successfulRequest(
@@ -54,8 +54,17 @@ router.get('/', userLoggedIn, async (request, response) => {
 })
 
 router.post('/new', userLoggedIn, async (request, response) => {
-  const {mangadexId, userId, title, description, tags, author, coverFileName, volumes} = request.query
+  const {mangadexId, userId, title, description, completionStatus, tags, author, coverFileName, volumes} = request.body
   const seriesObject = {
+    mangadexId,
+    userId,
+    title,
+    description,
+    completionStatus,
+    tags,
+    author,
+    coverFileName,
+    
 
   }
 })
