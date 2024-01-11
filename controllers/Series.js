@@ -82,14 +82,26 @@ Purpose: Search for Manga Series TO Add
 Needed: volumes [{}]
 */
 router.put('/:id', userLoggedIn, async (request, response) => {
-  const {id} = request.params
-  try{
+  const { id } = request.params
+  try {
     const oldSeries = await Series.findById(id)
     oldSeries.volumes = request.body.volumes
-    const newSeries = await Series.findByIdAndUpdate(id, oldSeries, {new: true})
-    successfulRequest(response, 'Successful Update', "Collection was successfully updated", newSeries)
-  }catch (error) {
-    failedRequest(response, 'Failed To Update', 'Unable To Update. Please Contact Sitemaster If Issue Persists', error)
+    const newSeries = await Series.findByIdAndUpdate(id, oldSeries, {
+      new: true
+    })
+    successfulRequest(
+      response,
+      'Successful Update',
+      'Collection was successfully updated',
+      newSeries
+    )
+  } catch (error) {
+    failedRequest(
+      response,
+      'Failed To Update',
+      'Unable To Update. Please Contact Sitemaster If Issue Persists',
+      error
+    )
   }
 })
 
@@ -143,6 +155,67 @@ router.post('/', userLoggedIn, async (request, response) => {
     )
   } catch (error) {
     failedRequest(response, 'Failed To Add', 'Unable To Add', error)
+  }
+})
+
+/*
+Show
+Purpose: View a specific collection
+Params: series._id ''
+*/
+
+router.get('/collections', userLoggedIn, async (request, response) => {
+  const { id } = request.query
+  try {
+    const seriesData = await Series.find({ userId: id })
+    if (seriesData.length > 0) {
+      successfulRequest(
+        response,
+        'Request Successful',
+        'Collection Found',
+        seriesData
+      )
+    } else {
+      failedRequest(
+        response,
+        'Nothing Found',
+        'No Collections Found For User',
+        'No Collections Added'
+      )
+    }
+  } catch (error) {
+    failedRequest(
+      response,
+      'Failed Find Collection',
+      'Unable To Find Collection. Contact Sitemaster If Issue Persists',
+      error
+    )
+  }
+})
+
+/*
+Show
+Purpose: View a specific collection
+Params: series._id ''
+*/
+
+router.get('/collections/:id', userLoggedIn, async (request, response) => {
+  const { id } = request.params
+  try {
+    const seriesData = await Series.findById(id)
+    successfulRequest(
+      response,
+      'Request Successful',
+      'Collection Found',
+      seriesData
+    )
+  } catch (error) {
+    failedRequest(
+      response,
+      'Failed Find Collection',
+      'Unable To Find Collection. Contact Sitemaster If Issue Persists',
+      error
+    )
   }
 })
 
