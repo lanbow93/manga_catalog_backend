@@ -54,7 +54,19 @@ router.get('/', userLoggedIn, async (request, response) => {
 })
 
 router.post('/new', userLoggedIn, async (request, response) => {
-  const {mangadexId, userId, title, description, completionStatus, tags, author, coverFileName, volumes} = request.body
+  const {mangadexId, userId, title, description, completionStatus, tags, author, coverUrl, volumes} = request.body
+  function createVolumeArray(totalVolumes) {
+    let volumes = [];
+    for (let i = 1; i <= totalVolumes; i++) {
+        volumes.push({
+            volumeNumber: i,
+            status: 'Need To Purchase' // default status
+        });
+    }
+
+    return volumes;
+}
+
   const seriesObject = {
     mangadexId,
     userId,
@@ -63,9 +75,8 @@ router.post('/new', userLoggedIn, async (request, response) => {
     completionStatus,
     tags,
     author,
-    coverFileName,
-    
-
+    coverUrl,
+    volumes: createVolumeArray(volumes)
   }
 })
 
