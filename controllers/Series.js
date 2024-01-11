@@ -10,6 +10,7 @@ dotenv.config()
 const router = express.Router()
 
 const baseUrl = 'https://api.mangadex.org'
+
 router.get('/', userLoggedIn, async (request, response) => {
   const { titleKeyword, isAdult } = request.query
   try {
@@ -26,13 +27,13 @@ router.get('/', userLoggedIn, async (request, response) => {
         }
       }
     )
-
     const parsedData = await apiResponse.json()
     const seriesData = parsedData.data.map((series) => {
       return {
         id: series.id,
         title: series.attributes.title.en,
         description: series.attributes.description.en,
+        status: series.attributes.status,
         tags: series.attributes.tags.map(
           (tagArray) => tagArray.attributes.name.en
         ),
@@ -52,10 +53,12 @@ router.get('/', userLoggedIn, async (request, response) => {
   }
 })
 
-// Gets Image
-// https://uploads.mangadex.org/covers/:manga-id/:cover-filename
+router.post('/new', userLoggedIn, async (request, response) => {
+  const {mangadexId, userId, title, description, tags, author, coverFileName, volumes} = request.query
+  const seriesObject = {
 
-// search Amazon
-// https://www.amazon.com/s?k=${title} manga volume {volumeNumber}
+  }
+})
+
 
 export default router
