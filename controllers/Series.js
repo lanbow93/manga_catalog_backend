@@ -62,12 +62,34 @@ Destroy
 Purpose: Search for Manga Series TO Add
 Params: series._id ''
 */
-router.delete('/:id', async (request, response) => {
-  try{
-    const deletedSeries = await Series.findByIdAndDelete(request.params.id);
-    successfulRequest(response, "Deletion Successful", "Collection as been removed", deletedSeries)
-  }catch (error) {
+router.delete('/:id', userLoggedIn, async (request, response) => {
+  try {
+    const deletedSeries = await Series.findByIdAndDelete(request.params.id)
+    successfulRequest(
+      response,
+      'Deletion Successful',
+      'Collection as been removed',
+      deletedSeries
+    )
+  } catch (error) {
     failedRequest(response, 'Failed Search', 'Unable To Search', error)
+  }
+})
+
+/*
+Update Volumes Status
+Purpose: Search for Manga Series TO Add
+Needed: volumes [{}]
+*/
+router.put('/:id', userLoggedIn, async (request, response) => {
+  const {id} = request.params
+  try{
+    const oldSeries = await Series.findById(id)
+    oldSeries.volumes = request.body.volumes
+    const newSeries = await Series.findByIdAndUpdate(id, oldSeries, {new: true})
+    successfulRequest(response, 'Successful Update', "Collection was successfully updated", newSeries)
+  }catch (error) {
+    failedRequest(response, 'Failed To Update', 'Unable To Update. Please Contact Sitemaster If Issue Persists', error)
   }
 })
 
