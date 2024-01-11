@@ -11,6 +11,11 @@ const router = express.Router()
 
 const baseUrl = 'https://api.mangadex.org'
 
+/*
+Index
+Purpose: Search for Manga Series TO Add
+Needed: titleKeyword '' | isAdult {0,1}
+*/
 router.get('/', userLoggedIn, async (request, response) => {
   const { titleKeyword, isAdult } = request.query
   try {
@@ -48,11 +53,29 @@ router.get('/', userLoggedIn, async (request, response) => {
       seriesData
     )
   } catch (error) {
-    console.error(error)
     failedRequest(response, 'Failed Search', 'Unable To Search', error)
   }
 })
 
+/*
+Destroy
+Purpose: Search for Manga Series TO Add
+Params: series._id ''
+*/
+router.delete('/:id', async (request, response) => {
+  try{
+    const deletedSeries = await Series.findByIdAndDelete(request.params.id);
+    successfulRequest(response, "Deletion Successful", "Collection as been removed", deletedSeries)
+  }catch (error) {
+    failedRequest(response, 'Failed Search', 'Unable To Search', error)
+  }
+})
+
+/*
+Create
+Purpose: Creates A Series For User To Track
+Needed: mangadexId '' | userId '' | title '' | description '' | completionStatus '' | tags [''] | author '' | coverUrl '' | volumes #
+*/
 router.post('/', userLoggedIn, async (request, response) => {
   const {
     mangadexId,
