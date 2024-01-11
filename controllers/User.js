@@ -90,7 +90,10 @@ router.post('/signup', async (request, response) => {
     failedRequest(response, 'User Creation Failed', message, 'Signup Failed')
   }
 })
-
+/*
+Purpose: Verify
+Needed: username | password | email | isAdult
+*/
 router.get('/verify-email/:token', async (request, response) => {
   try {
     const token = request.params.token
