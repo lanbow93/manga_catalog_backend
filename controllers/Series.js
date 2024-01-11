@@ -53,21 +53,8 @@ router.get('/', userLoggedIn, async (request, response) => {
   }
 })
 
-router.post('/new', userLoggedIn, async (request, response) => {
-  const {mangadexId, userId, title, description, completionStatus, tags, author, coverUrl, volumes} = request.body
-  function createVolumeArray(totalVolumes) {
-    let volumes = [];
-    for (let i = 1; i <= totalVolumes; i++) {
-        volumes.push({
-            volumeNumber: i,
-            status: 'Need To Purchase' // default status
-        });
-    }
-
-    return volumes;
-}
-
-  const seriesObject = {
+router.post('/', userLoggedIn, async (request, response) => {
+  const {
     mangadexId,
     userId,
     title,
@@ -76,9 +63,42 @@ router.post('/new', userLoggedIn, async (request, response) => {
     tags,
     author,
     coverUrl,
-    volumes: createVolumeArray(volumes)
+    volumes
+  } = request.body
+  function createVolumeArray (totalVolumes) {
+    const volumes = []
+    for (let i = 1; i <= totalVolumes; i++) {
+      volumes.push({
+        volumeNumber: i,
+        status: 'Need To Purchase'
+      })
+    }
+
+    return volumes
+  }
+  try {
+    const seriesObject = {
+      mangadexId,
+      userId,
+      title,
+      description,
+      completionStatus,
+      tags,
+      author,
+      coverUrl,
+      volumes: createVolumeArray(volumes)
+    }
+
+    const newSeries = await Series.create(seriesObject)
+    successfulRequest(
+      response,
+      'Request Successful:',
+      'New Collection Added',
+      newSeries
+    )
+  } catch (error) {
+    failedRequest(response, 'Failed To Add', 'Unable To Add', error)
   }
 })
-
 
 export default router
