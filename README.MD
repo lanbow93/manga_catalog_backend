@@ -49,9 +49,3 @@ The MongoDB database is used with Mongoose for object data modeling. It includes
 
 ## Getting Started
 - Instructions for setting up and running the project, including environment setup, database connection, and running the server.
-
----
-
-For a detailed view of the code and additional specifics, refer to the [GitHub repository](https://github.com/lanbow93/manga_catalog_backend).
-
----
