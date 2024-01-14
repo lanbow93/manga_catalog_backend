@@ -140,12 +140,9 @@ router.post('/login', async (request, response) => {
 
     // If user exists checks for password
     if (userObject) {
-      if (userObject.isVerified) {
-        const passwordCheck = await bcrypt.compare(
-          password,
-          userObject.password
-        )
-        if (passwordCheck) {
+      const passwordCheck = await bcrypt.compare(password, userObject.password)
+      if (passwordCheck) {
+        if (userObject.isVerified) {
           const payload = { username }
           const token = await jwt.sign(payload, SECRET)
           response
@@ -165,16 +162,16 @@ router.post('/login', async (request, response) => {
           failedRequest(
             response,
             'Login Failed',
-            'Invalid Password/Username',
-            'Incorrect P/U'
+            'Email not verified. Please check your email for verification instructions.',
+            'Email Not Verified'
           )
         }
       } else {
         failedRequest(
           response,
           'Login Failed',
-          'Email not verified. Please check your email for verification instructions.',
-          'Email Not Verified'
+          'Invalid Password/Username',
+          'Incorrect P/U'
         )
       }
     } else {
