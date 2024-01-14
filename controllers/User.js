@@ -18,8 +18,8 @@ dotenv.config()
 const router = express.Router()
 const SECRET = process.env.SECRET || ''
 
-const frontendUrl = 'http://localhost:5173'
-const siteName = 'Animazing Catalog'
+const frontendUrl = process.env.FRONTEND_URL
+const siteName = process.env.SITENAME
 const borderColor = '#9DD9F3'
 const cornerColor = '#77C3EC'
 
