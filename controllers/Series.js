@@ -62,7 +62,7 @@ Destroy
 Purpose: Search for Manga Series TO Add
 Params: series._id ''
 */
-router.delete('/:id', async (request, response) => {
+router.delete('/:id', userLoggedIn, async (request, response) => {
   try {
     const deletedSeries = await Series.findByIdAndDelete(request.params.id)
     successfulRequest(
@@ -78,10 +78,10 @@ router.delete('/:id', async (request, response) => {
 
 /*
 Update Volumes Status
-Purpose: Search for Manga Series TO Add
+Purpose: Update Volumes Based Upon New User Input
 Needed: volumes [{}]
 */
-router.put('/:id', async (request, response) => {
+router.put('/:id', userLoggedIn, async (request, response) => {
   const { id } = request.params
   try {
     const oldSeries = await Series.findById(id)
@@ -110,7 +110,7 @@ Create
 Purpose: Creates A Series For User To Track
 Needed: mangadexId '' | userId '' | title '' | description '' | completionStatus '' | tags [''] | author '' | coverUrl '' | volumes #
 */
-router.post('/', async (request, response) => {
+router.post('/', userLoggedIn, async (request, response) => {
   const {
     mangadexId,
     userId,
@@ -164,7 +164,7 @@ Purpose: View a specific collection
 Params: series._id ''
 */
 
-router.get('/collections', async (request, response) => {
+router.get('/collections', userLoggedIn, async (request, response) => {
   const { id } = request.query
   try {
     const seriesData = await Series.find({ userId: id })
@@ -199,7 +199,7 @@ Purpose: View a specific collection
 Params: series._id ''
 */
 
-router.get('/collections/:id', async (request, response) => {
+router.get('/collections/:id', userLoggedIn, async (request, response) => {
   const { id } = request.params
   try {
     const seriesData = await Series.findById(id)
