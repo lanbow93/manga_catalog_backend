@@ -16,7 +16,7 @@ Index
 Purpose: Search for Manga Series TO Add
 Needed: titleKeyword '' | isAdult {0,1}
 */
-router.get('/', userLoggedIn, async (request, response) => {
+router.get('/', async (request, response) => {
   const { titleKeyword, isAdult } = request.query
   try {
     const apiResponse = await fetch(
@@ -78,7 +78,7 @@ router.delete('/:id', userLoggedIn, async (request, response) => {
 
 /*
 Update Volumes Status
-Purpose: Search for Manga Series TO Add
+Purpose: Update Volumes Based Upon New User Input
 Needed: volumes [{}]
 */
 router.put('/:id', userLoggedIn, async (request, response) => {
