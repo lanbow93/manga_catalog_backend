@@ -59,7 +59,7 @@ router.get('/', async (request, response) => {
 
 /*
 Destroy
-Purpose: Search for Manga Series TO Add
+Purpose: Delete Manga Series From Collection
 Params: series._id ''
 */
 router.delete('/:id', userLoggedIn, async (request, response) => {
