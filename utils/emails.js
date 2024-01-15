@@ -1,6 +1,5 @@
 export function forgotPasswordEmailGenerator (
-  frontendUrl,
-  verificationString,
+  verificationLink,
   siteName,
   borderColor,
   cornerColor
@@ -217,7 +216,7 @@ export function forgotPasswordEmailGenerator (
                                     style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#3aaee0;border-radius:4px;width:auto;border-top:0px solid transparent;font-weight:400;border-right:0px solid transparent;border-bottom:0px solid transparent;border-left:0px solid transparent;padding-top:5px;padding-bottom:5px;font-family:Tahoma,Verdana,Segoe,sans-serif;font-size:14px;text-align:center;word-break:keep-all"
                                     rel="noreferrer"
                                     target="_blank"
-                                    href="${frontendUrl}/forgotpassword/${verificationString}"
+                                    href="${verificationLink}"
                                   >
                                     <span style="padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;letter-spacing:normal">
                                       <span style="word-break:break-word;line-height:28px">
