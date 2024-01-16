@@ -122,7 +122,7 @@ router.post('/', userLoggedIn, async (request, response) => {
     coverUrl,
     volumes
   } = request.body
-  function createVolumeArray (totalVolumes) {
+  function createVolumeArray(totalVolumes) {
     const volumes = []
     for (let i = 1; i <= totalVolumes; i++) {
       volumes.push({
