@@ -1,4 +1,4 @@
-export function forgotPasswordEmailGenerator (
+export function forgotPasswordEmailGenerator(
   verificationLink,
   siteName,
   borderColor,
@@ -190,7 +190,7 @@ export function forgotPasswordEmailGenerator (
                                   <div style="font-size:12px;font-family:Tahoma,Verdana,Segoe,sans-serif;color:#555;line-height:1.2">
                                     <p style="margin:0;font-size:14px;text-align:center">
                                       <span style="font-size:16px">
-                                        Not to worry, we got you! Let’s get you
+                                        Not to worry, we got you! Let's get you
                                         a new password.
                                       </span>
                                     </p>
@@ -315,7 +315,7 @@ export function forgotPasswordEmailGenerator (
 </table>`
 }
 
-export function verifyEmailGenerator (
+export function verifyEmailGenerator(
   verificationLink,
   siteName,
   borderColor,
